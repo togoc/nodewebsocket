@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="WebSocketTest()">11</button>
+    <button onclick="WebSocketTest1()">22</button>
+</body>
+<script>
+    //第一个参数 url, 指定连接的 URL。第二个参数 protocol 是可选的，指定了可接受的子协议。
+    // var Socket = new WebSocket(url, [protocol]);
+    function WebSocketTest() {
+        // if ("WebSocket" in window) {
+        //     alert("您的浏览器支持 WebSocket!");
+
+        // 打开一个 web socket
+        var ws = new WebSocket("ws://192.168.0.2:3000/ws/user");
+
+        ws.onopen = function () {
+            // Web Socket 已连接上，使用 send() 方法发送数据
+            ws.send("发送数据");
+            alert("数据发送中...");
+        };
+
+        ws.onmessage = function (evt) {
+            var received_msg = evt.data;
+            console.log("接收的数据: " + received_msg)
+        };
+        ws.onerror = function (err) {
+            alert(err)
+        }
+        ws.onclose = function () {
+            // 关闭 websocket
+            console.log("连接已关闭...");
+        };
+        // } else {
+        //     // 浏览器不支持 WebSocket
+        //     alert("您的浏览器不支持 WebSocket!");
+        // }
+    }
+    function WebSocketTest1() {
+        // if ("WebSocket" in window) {
+        //     alert("您的浏览器支持 WebSocket!");
+
+        // 打开一个 web socket
+        var ws = new WebSocket("ws://192.168.0.2:3000/ws/user1");
+
+        ws.onopen = function () {
+            // Web Socket 已连接上，使用 send() 方法发送数据
+            ws.send("发送数据1");
+            alert("数据发送中...");
+        };
+
+        ws.onmessage = function (evt) {
+            var received_msg = evt.data;
+            console.log("接收的数据: " + received_msg)
+        };
+        ws.onerror = function (err) {
+            alert(err)
+        }
+        ws.onclose = function () {
+            // 关闭 websocket
+            console.log("连接已关闭...");
+        };
+        // } else {
+        //     // 浏览器不支持 WebSocket
+        //     alert("您的浏览器不支持 WebSocket!");
+        // }
+    }
+</script>
+
+</html>
