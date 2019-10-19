@@ -1,11 +1,10 @@
 const express = require("express")
-var expressWs = require('express-ws');
+const app = express()
+var expressWs = require('express-ws')(app);
 const fs = require("fs")
 const bodyparser = require("body-parser")
 var module1 = require('./component/module1');
-const app = express()
 
-expressWs(app)
 app.use('/ws', module1);
 
 
@@ -17,6 +16,14 @@ app.use(bodyparser.json())
 // var router = express.Router();
 // expressWs(router);
 
+app.ws('/user', function(ws, req) {
+    ws.send("ok")
+    ws.on('message', function(msg) {
+        console.log(msg)
+        console.log(expressWs.getWss().clients)
+        console.log(expressWs.getWss())
+    })
+})
 
 
 
@@ -24,19 +31,6 @@ app.use(bodyparser.json())
 // app.ws("/ws", function(ws, req) {
 //     ws.send("ok1")
 // })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.listen(3000, () => {

@@ -5,16 +5,11 @@ var expressWs = require('express-ws');
 var router = express.Router();
 expressWs(router);
 
-router.ws('/user', function(ws1, req) {
+router.ws('/user', function(ws, req) {
+    ws.send("ok")
     ws.on('message', function(msg) {
-        router.ws('/user1', function(ws2, req) {
-            ws1.send(1)
-            ws2.send(2)
-            console.log(msg)
-                // ws.on('message', function(msg) {
-                //     // 业务代码
-                // })
-        })
+        console.log(msg)
+        console.log(expressWs.getWss().clients)
     })
 })
 
